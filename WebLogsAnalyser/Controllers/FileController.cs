@@ -12,17 +12,37 @@ namespace WebLogsAnalyser.Controllers
 {
     public class FileController : Controller
     {
+        //GET: @ /File/Index
         public ActionResult Index() {
+            //Flag unavailable file
             ViewBag.ReadyToAnalyze = false;
             return View();
         }
 
+        //GET: @ /File/Index
+        public FileContentResult DownloadSample() {
+            string filename = "apache_logs.txt";
+            string filepath = AppDomain.CurrentDomain.BaseDirectory + "/Resources/LogFileSample/" + filename;
+            byte[] filedata = System.IO.File.ReadAllBytes(filepath);
+            string contentType = MimeMapping.GetMimeMapping(filepath);
 
-        //Handles POST action with file
+            var cd = new System.Net.Mime.ContentDisposition {
+                FileName = filename,
+                Inline = false,
+            };
+
+            Response.AppendHeader("Content-Disposition", cd.ToString());
+
+            return File(filedata, contentType);
+        }
+
+
+        //POST: Handles uploading file action
         [HttpPost]
         public ActionResult Index(HttpPostedFileBase file) {
+            //Flag unavailable file
             ViewBag.ReadyToAnalyze = false;
-            //Validate File
+            //Validate Uploaded File
             if (file != null && file.ContentLength > 0) {
                 try {
                     //Get filename
@@ -36,6 +56,7 @@ namespace WebLogsAnalyser.Controllers
                         System.IO.File.Delete(tmpPath);
                         return View("Index");
                     } else {
+                        //Validate file contains logs
                         if (ValidateLog(tmpPath)) {
                             System.IO.File.Delete(tmpPath);
                             //Store File with unique name
@@ -59,6 +80,7 @@ namespace WebLogsAnalyser.Controllers
                 ViewBag.Message = "You have not specified a file.";
             }
 
+            //Parse Uploaded file data 
             var ParsedData = new GraphController().Parse(ViewBag.UploadedFilePath);
             ViewBag.FiletypesGraphData = ParsedData.Data.FiletypesGraphData;
             ViewBag.ResponsesGraphData = ParsedData.Data.ResponsesGraphData;
@@ -70,6 +92,13 @@ namespace WebLogsAnalyser.Controllers
 
 
 
+
+
+
+
+
+
+        //Detects a hidden executable file masked as text file (WINDOWS MZ-exe )
         public static bool DetectExecutable(string filePath) {
             var firstBytes = new byte[2];
             using (var fileStream = System.IO.File.Open(filePath, FileMode.Open)) {
@@ -77,6 +106,8 @@ namespace WebLogsAnalyser.Controllers
             }
             return Encoding.UTF8.GetString(firstBytes) == "MZ";
         }
+
+        //Validates that file contains actual Logs
         public static bool ValidateLog(string filePath) {
             string fLine = System.IO.File.ReadLines(filePath).First();
             string logEntryPattern = "^([\\d.]+) (\\S+) (\\S+) \\[([\\w:/]+\\s[+\\-]\\d{4})\\] \"(.+?)\" (\\d{3}) (\\d+) \"([^\"]+)\" \"([^\"]+)\"";
