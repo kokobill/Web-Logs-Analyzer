@@ -19,15 +19,14 @@ namespace WebLogsAnalyser.Controllers
             return View();
         }
 
-        //GET: @ /File/Index
+        //Downloads a sample logs file
         public FileContentResult DownloadSample() {
-            string filename = "apache_logs.txt";
-            string filepath = AppDomain.CurrentDomain.BaseDirectory + "/Resources/LogFileSample/" + filename;
-            byte[] filedata = System.IO.File.ReadAllBytes(filepath);
-            string contentType = MimeMapping.GetMimeMapping(filepath);
+            string fullFilePath = AppDomain.CurrentDomain.BaseDirectory + "/Resources/LogFileSample/apache_logs.txt";
+            byte[] filedata = System.IO.File.ReadAllBytes(fullFilePath);
+            string contentType = MimeMapping.GetMimeMapping(fullFilePath);
 
             var cd = new System.Net.Mime.ContentDisposition {
-                FileName = filename,
+                FileName = fullFilePath.Split('/').LastOrDefault(),
                 Inline = false,
             };
 
@@ -65,7 +64,15 @@ namespace WebLogsAnalyser.Controllers
                             ViewBag.Message = "File uploaded successfully";
                             ViewBag.UploadedFilePath = path;
                             ViewBag.ReadyToAnalyze = true;
-                        }else {
+
+                            //Parse Uploaded file data 
+                            var ParsedData = new GraphController().Parse(ViewBag.UploadedFilePath);
+                            ViewBag.FiletypesGraphData = ParsedData.Data.FiletypesGraphData;
+                            ViewBag.ResponsesGraphData = ParsedData.Data.ResponsesGraphData;
+                            ViewBag.DailyTransfersGraphData = ParsedData.Data.DailyTransfersGraphData;
+
+
+                        } else {
                             ViewBag.Message = "Invalid Log file";
                             System.IO.File.Delete(tmpPath);
                             return View("Index");
@@ -79,12 +86,6 @@ namespace WebLogsAnalyser.Controllers
             } else {
                 ViewBag.Message = "You have not specified a file.";
             }
-
-            //Parse Uploaded file data 
-            var ParsedData = new GraphController().Parse(ViewBag.UploadedFilePath);
-            ViewBag.FiletypesGraphData = ParsedData.Data.FiletypesGraphData;
-            ViewBag.ResponsesGraphData = ParsedData.Data.ResponsesGraphData;
-            ViewBag.DailyTransfersGraphData = ParsedData.Data.DailyTransfersGraphData;
 
 
             return View("Index");

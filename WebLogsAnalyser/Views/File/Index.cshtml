@@ -1,27 +1,21 @@
-﻿
-
-
-@{
+﻿@{
     ViewBag.Title = "File Upload Page";
 }
 
-
 <script src="~/Scripts/ChartJS/Chart.bundle.min.js"></script>
 
-
-
-    @if (ViewBag.ReadyToAnalyze == false || true) {
-        <div class="jumbotron">
-            <h1>Please select Log file to analyze</h1>
-            @using (Html.BeginForm("Index","File",FormMethod.Post,new { enctype = "multipart/form-data" })) {
+@*always show*@
+@if (ViewBag.ReadyToAnalyze == false || true) {
+    <div class="jumbotron">
+        <h1>Please select Log file to analyze</h1>
+        @using (Html.BeginForm("Index","File",FormMethod.Post,new { enctype = "multipart/form-data" })) {
             <label for="file">Upload File:</label>
             <input type="file" name="file" id="file" />
             <input type="submit" value="Upload File" />
-            }
-            @ViewBag.Message
-        </div>
-    }
-
+        }
+        @ViewBag.Message
+    </div>
+}
 
 
 
@@ -30,7 +24,7 @@
 
 
     @if (ViewBag.ReadyToAnalyze) {
-        //TODO INTEGRATE HERE GRAPHS
+        //INTEGRATE HERE GRAPHS
 
         <div class="row">
             <div class="col-md-6">
