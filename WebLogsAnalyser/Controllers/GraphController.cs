@@ -127,14 +127,15 @@ namespace WebLogsAnalyser.Controllers
                 return false;
             }
 
-            //TODO overkill???
-            //Validate filename integrity on OS
-            System.IO.FileInfo fi = null;
-            try {fi = new System.IO.FileInfo(resource);}
-            catch (ArgumentException) { }
-            catch (System.IO.PathTooLongException) { }
-            catch (NotSupportedException) { }
-            return !ReferenceEquals(fi, null);
+            ////TODO overkill???
+            ////Validate filename integrity on OS
+            //System.IO.FileInfo fi = null;
+            //try {fi = new System.IO.FileInfo(resource);}
+            //catch (ArgumentException) { }
+            //catch (System.IO.PathTooLongException) { }
+            //catch (NotSupportedException) { }
+            //return !ReferenceEquals(fi, null);
+            return true;
         }
 
     }
