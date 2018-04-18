@@ -47,7 +47,7 @@ namespace WebLogsAnalyser.Controllers
                     //Get filename
                     var fileName = Path.GetFileName(file.FileName);
                     //Store tmpFile for extra checks
-                    var tmpPath = Path.Combine(Server.MapPath("~/App_Data/tmp"), "tmp"+ fileName + DateTime.Now.ToString("yyyyMMddHHmmssfff"));
+                    var tmpPath = Path.Combine(Server.MapPath("/App_Data/tmp"), "tmp"+ fileName + DateTime.Now.ToString("yyyyMMddHHmmssfff"));
                     file.SaveAs(tmpPath);
                     //Detect malicious file
                     if (DetectExecutable(tmpPath)) {
@@ -59,7 +59,7 @@ namespace WebLogsAnalyser.Controllers
                         if (ValidateLog(tmpPath)) {
                             System.IO.File.Delete(tmpPath);
                             //Store File with unique name
-                            var path = Path.Combine(Server.MapPath("~/App_Data/UploadedLogFiles"), DateTime.Now.ToString("yyyyMMddHHmmssfff") + "_" + fileName);
+                            var path = Path.Combine(Server.MapPath("/App_Data/UploadedLogFiles"), DateTime.Now.ToString("yyyyMMddHHmmssfff") + "_" + fileName);
                             file.SaveAs(path);
                             ViewBag.Message = "File uploaded successfully";
                             ViewBag.UploadedFilePath = path;
