@@ -1,0 +1,183 @@
+﻿@{
+    ViewBag.Title = "File Upload Page";
+}
+
+<script src="~/Scripts/ChartJS/Chart.bundle.min.js"></script>
+
+@*always show*@
+@if (ViewBag.ReadyToAnalyze == false || true) {
+    <div class="jumbotron">
+        <h1>Please select Log file to analyze</h1>
+        @using (Html.BeginForm("Index","File",FormMethod.Post,new { enctype = "multipart/form-data" })) {
+            <label for="file">Upload File:</label>
+            <input type="file" name="file" id="file" />
+            <input type="submit" value="Upload File" />
+        }
+        @ViewBag.Message
+    </div>
+}
+
+
+
+
+
+
+
+    @if (ViewBag.ReadyToAnalyze) {
+        //INTEGRATE HERE GRAPHS
+
+        <div class="row">
+            <div class="col-md-6">
+                <canvas id="topFiletypesChart" width="400" height="400"></canvas>
+            </div>
+            <div class="col-md-6">
+                <canvas id="responsesChart" width="400" height="400"></canvas>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <canvas id="dailyDataChart" width="400" height="400"></canvas>
+            </div>
+        </div>
+
+
+        <script>
+            var ctFT = document.getElementById("topFiletypesChart");
+            var myFiletypeChart = new Chart(ctFT, {
+                type: 'bar',
+                data: {
+                    labels: [
+                        @foreach (var filetype in ViewBag.FiletypesGraphData) {
+                            @:"@filetype.extension",
+                        }
+                    ],
+                    datasets: [{
+                        label: 'Average Filesize (bytes)',
+                        data: [
+                            @foreach (var filetype in ViewBag.FiletypesGraphData) {
+                                    @:"@filetype.avgSize.ToString().Replace(",", ".")",
+                                }
+                        ],
+                        backgroundColor: [
+                            @foreach (var filetype in ViewBag.FiletypesGraphData) {
+                                @:random_rgba(),
+                            }
+
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            type: 'linear',
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+
+
+
+            var ctRV = document.getElementById('responsesChart');
+            var myResponsesChart = new Chart(ctRV, {
+                type: 'pie',
+                data: {
+                    // These labels appear in the legend and in the tooltips when hovering different arcs
+                    labels: [
+                        @foreach (var resposeCode in ViewBag.ResponsesGraphData) {
+                            @:"@resposeCode.responseCode",
+                        }
+                    ],
+                    datasets: [{
+                        data: [
+                            @foreach (var resposeCode in ViewBag.ResponsesGraphData) {
+                                @:"@resposeCode.totalSize",
+                            }
+                        ],
+                        backgroundColor: [
+						    @foreach (var filetype in ViewBag.FiletypesGraphData) {
+                                @:random_rgba(),
+                            }
+                        ],
+                        label: 'Response Data Volumes (Kb)'
+                    }]
+                }
+            });
+
+
+
+
+            var ctDD = document.getElementById('dailyDataChart');
+            var myDailyDataChart = new Chart(ctDD, {
+                type: 'line',
+                data: {
+                    labels: [
+                        @foreach (var dailyVolume in ViewBag.DailyTransfersGraphData) {
+                            @:"@dailyVolume.date",
+                        }
+                    ],
+                    datasets: [{
+                        label: 'My Daily Data volume',
+                        backgroundColor: random_rgba(),
+                        data: [
+                            @foreach (var dailyVolume in ViewBag.DailyTransfersGraphData) {
+                                @:"@dailyVolume.totalSize",
+                            }
+                        ],
+                        fill: false,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: 'Daily Volume (Kb)'
+                    },
+                    tooltips: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    hover: {
+                        mode: 'nearest',
+                        intersect: true
+                    },
+                    scales: {
+                        xAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Date'
+                            }
+                        }],
+                        yAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Volume (Kb)'
+                            }
+                        }]
+                    }
+                }
+            });
+
+
+            function random_rgba() {
+                var o = Math.round, r = Math.random, s = 255;
+                return 'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',0.2)';
+            }
+
+        </script>
+
+
+        @*<div><input type="button" value="Analyze File" onclick="location.href='@Url.Action("Index", "Graph", new { filePath = ViewBag.UploadedFilePath })'" /></div>*@
+
+
+    }
+
+
+
+
+
