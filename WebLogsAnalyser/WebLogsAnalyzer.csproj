@@ -219,6 +219,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\File\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />

@@ -19,6 +19,33 @@ namespace WebLogsAnalyser.Controllers
             return View();
         }
 
+        //GET: @ /File/List
+        //Show a list of uploaded files to analyze or remove
+        public ActionResult List() {
+            System.IO.DirectoryInfo di = new DirectoryInfo(Server.MapPath("~/App_Data/UploadedLogFiles"));
+            ViewBag.UploadedFiles = di.GetFiles();
+            return View();
+        }
+
+        //GET: @ /File/Delete
+        //Deletes an uploaded log file
+        public ActionResult Delete(string filename) {
+            var tmpPath = Server.MapPath("~/App_Data/UploadedLogFiles/" + filename);
+            try {
+                System.IO.File.Delete(tmpPath);
+            }
+            catch (Exception ex) {
+                ViewBag.Message = "Cannot clear file:" + ex.Message;
+            }
+
+            ViewBag.Message = "Cleared File " + filename;
+
+            return RedirectToAction("List");
+        }
+
+
+
+
         //Downloads a sample logs file
         public FileContentResult DownloadSample() {
             string fullFilePath = AppDomain.CurrentDomain.BaseDirectory + "/App_Data/LogFileSample/apache_logs.txt";
@@ -88,6 +115,30 @@ namespace WebLogsAnalyser.Controllers
             }
 
 
+            return View("Index");
+        }
+
+
+        //GET: Handles uploading file action
+        public ActionResult Analyze(string filename) {
+            //Flag unavailable file
+            ViewBag.ReadyToAnalyze = false;
+            try {
+                var path = Path.Combine(Server.MapPath("~/App_Data/UploadedLogFiles"),  filename);
+
+                //Parse Uploaded file data 
+                ViewBag.UploadedFilePath = path;
+                ViewBag.ReadyToAnalyze = true;
+                var ParsedData = new GraphController().Parse(ViewBag.UploadedFilePath);
+                ViewBag.FiletypesGraphData = ParsedData.Data.FiletypesGraphData;
+                ViewBag.ResponsesGraphData = ParsedData.Data.ResponsesGraphData;
+                ViewBag.DailyTransfersGraphData = ParsedData.Data.DailyTransfersGraphData;
+            }
+            catch (Exception ex) {
+                //Return special case exception
+                ViewBag.Message = "ERROR:" + ex.Message.ToString();
+            }
+             
             return View("Index");
         }
 
