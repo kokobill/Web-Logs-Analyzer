@@ -186,7 +186,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Resources\LogFileSample\apache_logs.txt" />
+    <Content Include="App_Data\LogFileSample\apache_logs.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -219,9 +219,9 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Resources\tmp\" />
-    <Folder Include="Resources\UploadedLogFiles\" />
+    <Folder Include="App_Data\tmp\" />
+    <Folder Include="App_Data\UploadedLogFiles\" />
+    <Folder Include="Resources\" />
     <Folder Include="Views\Graph\" />
   </ItemGroup>
   <ItemGroup>
