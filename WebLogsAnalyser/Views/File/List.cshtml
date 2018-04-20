@@ -23,9 +23,15 @@
         <td>
             @Html.ActionLink("Analyze", "Analyze", new { filename = file.ToString() })
         </td>
-        <td>
-            @Html.ActionLink("Delete", "Delete", new { filename = file.ToString() }) 
-        </td>
+        @if (Request.IsAuthenticated) {
+            <td>
+                @Html.ActionLink("Delete", "Delete", new { filename = file.ToString() }) 
+            </td>
+        } else {
+            <td>
+               ---
+            </td>
+        }
     </tr>
 }
 
