@@ -71,12 +71,12 @@ namespace WebLogsAnalyser.Controllers
                         validLines++;
                         //Populate loggedRequests list
                         loggedRequests.Add(new LoggedRequest() {
-                                ip = lineIp,
+                                //ip = lineIp,
                                 date = lineDate,
                                 request = lineRequest,
                                 responseCode = responseCode,
-                                method = requestMethod,
-                                file = requestFile,
+                                //method = requestMethod,
+                                //file = requestFile,
                                 fileExtension = requestFileExtension,
                                 fileSize = fileSize});
                     }
@@ -94,9 +94,14 @@ namespace WebLogsAnalyser.Controllers
                                     .OrderByDescending(a => a.avgSize)
                                     .ToList();
 
-            //Get list of response codes and total filesizes
-            var responsesByHttpCode = loggedRequests.GroupBy(a => a.responseCode).OrderByDescending(top => top.Count())
-                                    .Select(a => new DataTransferedByResponse() { totalSize = a.Sum(b => b.fileSize/1024), responseCode = a.Key })
+            ////Get list of response codes and total filesizes
+            //var responsesByHttpCode = loggedRequests.GroupBy(a => a.responseCode).OrderByDescending(top => top.Count())
+            //                        .Select(a => new DataTransferedByResponse() { totalSize = a.Sum(b => b.fileSize/1024), responseCode = a.Key })
+            //                        .ToList();
+
+            //Get list of response success per day
+            var successResponsesPerDay = loggedRequests.GroupBy(a => a.date)
+                                    .Select(a => new SuccessResponsesPerDay() { count = a.Count(), date = a.Key })
                                     .ToList();
 
             //Get data volumes by date list
@@ -105,7 +110,7 @@ namespace WebLogsAnalyser.Controllers
                                     .ToList();
 
 
-            return Json(new { FiletypesGraphData=top20CommmonFilesRequests, ResponsesGraphData=responsesByHttpCode, DailyTransfersGraphData=dataTransferedByDay }, JsonRequestBehavior.AllowGet);
+            return Json(new { FiletypesGraphData=top20CommmonFilesRequests, /*ResponsesGraphData=responsesByHttpCode,*/ DailyTransfersGraphData=dataTransferedByDay, SuccessResponsesPerDay= successResponsesPerDay }, JsonRequestBehavior.AllowGet);
         }
 
 

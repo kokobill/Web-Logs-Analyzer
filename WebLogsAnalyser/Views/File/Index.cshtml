@@ -29,9 +29,10 @@
     <div class="row">
         <div class="col-md-6">
             <canvas id="topFiletypesChart" width="400" height="400"></canvas>
+            <button onclick="toggleAxisScale()">Change Scale</button>
         </div>
         <div class="col-md-6">
-            <canvas id="responsesChart" width="400" height="400"></canvas>
+            @*<canvas id="responsesChart" width="400" height="400"></canvas>*@
         </div>
     </div>
         <div class="row">
@@ -64,72 +65,23 @@
                             }
 
                         ],
+                        yAxisID: "yAxisLinear",
                         borderWidth: 1
                     }]
                 },
                 options: {
                     scales: {
                         yAxes: [{
+                            id: 'yAxisLinear',
                             type: 'linear',
                             ticks: {
                                 beginAtZero: true
                             }
                         }]
                     },
-                    //"animation": {
-                    //    "duration": 1,
-                    //    "onComplete": function() {
-                    //        var chartInstance = this.chart,
-                    //          ctx = chartInstance.ctx;
-
-                    //        ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
-                    //        ctx.textAlign = 'center';
-                    //        ctx.textBaseline = 'bottom';
-
-                    //        this.data.datasets.forEach(function(dataset, i) {
-                    //            var meta = chartInstance.controller.getDatasetMeta(i);
-                    //            meta.data.forEach(function(bar, index) {
-                    //                var data = dataset.data[index];
-                    //                ctx.fillText(data, bar._model.x, bar._model.y - 5);
-                    //            });
-                    //        });
-                    //    }
-                    //},
                 }
             });
             
-
-           
-
-
-
-            var ctRV = document.getElementById('responsesChart');
-            var myResponsesChart = new Chart(ctRV, {
-                type: 'pie',
-                data: {
-                    // These labels appear in the legend and in the tooltips when hovering different arcs
-                    labels: [
-                        @foreach (var resposeCode in ViewBag.ResponsesGraphData) {
-                            @:"@resposeCode.responseCode",
-                        }
-                    ],
-                    datasets: [{
-                        data: [
-                            @foreach (var resposeCode in ViewBag.ResponsesGraphData) {
-                                @:"@resposeCode.totalSize",
-                            }
-                        ],
-                        backgroundColor: [
-						    @foreach (var filetype in ViewBag.FiletypesGraphData) {
-                                @:random_rgba(),
-                            }
-                        ],
-                        label: 'Response Data Volumes (Kb)'
-                    }]
-                }
-            });
-
-
 
 
             var ctDD = document.getElementById('dailyDataChart');
@@ -142,15 +94,29 @@
                         }
                     ],
                     datasets: [{
-                        label: 'My Daily Data volume',
-                        backgroundColor: random_rgba(),
+                        label: 'Daily Data volume',
+                        backgroundColor: "rgba(200,20,20, 0.2)",
                         data: [
                             @foreach (var dailyVolume in ViewBag.DailyTransfersGraphData) {
                                 @:"@dailyVolume.totalSize",
                             }
                         ],
-                        fill: false,
-                    }]
+                        fill: true,
+                        yAxisID: "y-axis-Volume",
+                    },
+                    {
+                        label: 'Daily Success responses',
+                        backgroundColor: "rgba(20,200,20, 0.2)",
+                        data: [
+                            @foreach (var dailySuccessResp in ViewBag.SuccessResponsesPerDay) {
+                            @:"@dailySuccessResp.count",
+                            }
+                        ],
+                        fill: true,
+                        yAxisID: "y-axis-SuccCount",
+
+                    }
+                    ]
                 },
                 options: {
                     responsive: true,
@@ -175,10 +141,23 @@
                             }
                         }],
                         yAxes: [{
+                            id: "y-axis-Volume",
                             display: true,
+                            type:"linear",
+                            position:"left",
                             scaleLabel: {
                                 display: true,
                                 labelString: 'Volume (Kb)'
+                            }
+                        },
+                        {
+                            id: "y-axis-SuccCount",
+                            display: true,
+                            type: "linear",
+                            position: "right",
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Success'
                             }
                         }]
                     }
@@ -190,6 +169,9 @@
                 var o = Math.round, r = Math.random, s = 255;
                 return 'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',0.2)';
             }
+
+
+          
 
         </script>
 

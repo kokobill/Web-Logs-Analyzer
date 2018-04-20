@@ -29,4 +29,10 @@ namespace WebLogsAnalyser.Models {
         public string date { get; set; }
         public long totalSize { get; set; }
     }
+
+    public class SuccessResponsesPerDay {
+        public int count { get; set; }
+        public string date { get; set; }
+
+    }
 }

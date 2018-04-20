@@ -96,9 +96,9 @@ namespace WebLogsAnalyser.Controllers
                             //Parse Uploaded file data 
                             var ParsedData = new GraphController().Parse(ViewBag.UploadedFilePath);
                             ViewBag.FiletypesGraphData = ParsedData.Data.FiletypesGraphData;
-                            ViewBag.ResponsesGraphData = ParsedData.Data.ResponsesGraphData;
+                            //ViewBag.ResponsesGraphData = ParsedData.Data.ResponsesGraphData;
                             ViewBag.DailyTransfersGraphData = ParsedData.Data.DailyTransfersGraphData;
-
+                            ViewBag.SuccessResponsesPerDay = ParsedData.Data.SuccessResponsesPerDay;
 
                         } else {
                             ViewBag.Message = "Invalid Log file";
@@ -132,8 +132,10 @@ namespace WebLogsAnalyser.Controllers
                 ViewBag.ReadyToAnalyze = true;
                 var ParsedData = new GraphController().Parse(ViewBag.UploadedFilePath);
                 ViewBag.FiletypesGraphData = ParsedData.Data.FiletypesGraphData;
-                ViewBag.ResponsesGraphData = ParsedData.Data.ResponsesGraphData;
+                //ViewBag.ResponsesGraphData = ParsedData.Data.ResponsesGraphData;
                 ViewBag.DailyTransfersGraphData = ParsedData.Data.DailyTransfersGraphData;
+                ViewBag.SuccessResponsesPerDay = ParsedData.Data.SuccessResponsesPerDay;
+
             }
             catch (Exception ex) {
                 //Return special case exception
