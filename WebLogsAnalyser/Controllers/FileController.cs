@@ -21,6 +21,7 @@ namespace WebLogsAnalyser.Controllers
 
         //GET: @ /File/List
         //Show a list of uploaded files to analyze or remove
+        [Authorize]
         public ActionResult List() {
             System.IO.DirectoryInfo di = new DirectoryInfo(Server.MapPath("~/App_Data/UploadedLogFiles"));
             ViewBag.UploadedFiles = di.GetFiles();

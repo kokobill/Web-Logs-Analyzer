@@ -8,7 +8,7 @@
 @if (ViewBag.ReadyToAnalyze == false || true) {
     <div class="jumbotron">
         <h1>Please select Log file to analyze</h1>
-        @using (Html.BeginForm("Index","File",FormMethod.Post,new { enctype = "multipart/form-data" })) {
+        @using (Html.BeginForm("Index", "File", FormMethod.Post, new { enctype = "multipart/form-data" })) {
             <label for="file">Upload File:</label>
             <input type="file" name="file" id="file" />
             <input type="submit" value="Upload File" />
@@ -23,17 +23,17 @@
 
 
 
-    @if (ViewBag.ReadyToAnalyze) {
-        //INTEGRATE HERE GRAPHS
+@if (ViewBag.ReadyToAnalyze) {
+    //INTEGRATE HERE GRAPHS
 
-        <div class="row">
-            <div class="col-md-6">
-                <canvas id="topFiletypesChart" width="400" height="400"></canvas>
-            </div>
-            <div class="col-md-6">
-                <canvas id="responsesChart" width="400" height="400"></canvas>
-            </div>
+    <div class="row">
+        <div class="col-md-6">
+            <canvas id="topFiletypesChart" width="400" height="400"></canvas>
         </div>
+        <div class="col-md-6">
+            <canvas id="responsesChart" width="400" height="400"></canvas>
+        </div>
+    </div>
         <div class="row">
             <div class="col-md-12">
                 <canvas id="dailyDataChart" width="400" height="400"></canvas>
@@ -75,9 +75,31 @@
                                 beginAtZero: true
                             }
                         }]
-                    }
+                    },
+                    //"animation": {
+                    //    "duration": 1,
+                    //    "onComplete": function() {
+                    //        var chartInstance = this.chart,
+                    //          ctx = chartInstance.ctx;
+
+                    //        ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+                    //        ctx.textAlign = 'center';
+                    //        ctx.textBaseline = 'bottom';
+
+                    //        this.data.datasets.forEach(function(dataset, i) {
+                    //            var meta = chartInstance.controller.getDatasetMeta(i);
+                    //            meta.data.forEach(function(bar, index) {
+                    //                var data = dataset.data[index];
+                    //                ctx.fillText(data, bar._model.x, bar._model.y - 5);
+                    //            });
+                    //        });
+                    //    }
+                    //},
                 }
             });
+            
+
+           
 
 
 
@@ -172,10 +194,7 @@
         </script>
 
 
-        @*<div><input type="button" value="Analyze File" onclick="location.href='@Url.Action("Index", "Graph", new { filePath = ViewBag.UploadedFilePath })'" /></div>*@
-
-
-    }
+}
 
 
 

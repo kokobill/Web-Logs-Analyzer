@@ -21,9 +21,15 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("View Older Files", "List", "File")</li>
+                    @using Microsoft.AspNet.Identity
+                    @if (Request.IsAuthenticated) {
+                        @Html.AntiForgeryToken()
+                        <li>@Html.ActionLink("View Older Files", "List", "File")</li>
+                    }
                     <li>@Html.ActionLink("Download Logs Sample", "DownloadSample", "File")</li>
                 </ul>
+                @Html.Partial("_LoginPartial")
+
             </div>
             
         </div>

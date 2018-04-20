@@ -1,14 +1,14 @@
-D:\VisualStudioProjects\WebLogsAnalyzer\WebLogsAnalyser\bin\roslyn\csc.exe
-D:\VisualStudioProjects\WebLogsAnalyzer\WebLogsAnalyser\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
 D:\VisualStudioProjects\WebLogsAnalyzer\WebLogsAnalyser\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
 D:\VisualStudioProjects\WebLogsAnalyzer\WebLogsAnalyser\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\VisualStudioProjects\WebLogsAnalyzer\WebLogsAnalyser\bin\roslyn\System.Collections.Immutable.dll
+D:\VisualStudioProjects\WebLogsAnalyzer\WebLogsAnalyser\bin\roslyn\System.Reflection.Metadata.dll
+D:\VisualStudioProjects\WebLogsAnalyzer\WebLogsAnalyser\bin\roslyn\VBCSCompiler.exe
+D:\VisualStudioProjects\WebLogsAnalyzer\WebLogsAnalyser\bin\roslyn\csc.exe
+D:\VisualStudioProjects\WebLogsAnalyzer\WebLogsAnalyser\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
 D:\VisualStudioProjects\WebLogsAnalyzer\WebLogsAnalyser\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
 D:\VisualStudioProjects\WebLogsAnalyzer\WebLogsAnalyser\bin\roslyn\Microsoft.CSharp.Core.targets
 D:\VisualStudioProjects\WebLogsAnalyzer\WebLogsAnalyser\bin\roslyn\Microsoft.VisualBasic.Core.targets
-D:\VisualStudioProjects\WebLogsAnalyzer\WebLogsAnalyser\bin\roslyn\System.Collections.Immutable.dll
-D:\VisualStudioProjects\WebLogsAnalyzer\WebLogsAnalyser\bin\roslyn\System.Reflection.Metadata.dll
 D:\VisualStudioProjects\WebLogsAnalyzer\WebLogsAnalyser\bin\roslyn\vbc.exe
-D:\VisualStudioProjects\WebLogsAnalyzer\WebLogsAnalyser\bin\roslyn\VBCSCompiler.exe
 D:\VisualStudioProjects\WebLogsAnalyzer\WebLogsAnalyser\bin\roslyn\VBCSCompiler.exe.config
 D:\VisualStudioProjects\WebLogsAnalyzer\WebLogsAnalyser\bin\WebLogsAnalyser.dll.config
 D:\VisualStudioProjects\WebLogsAnalyzer\WebLogsAnalyser\bin\WebLogsAnalyser.dll
@@ -64,5 +64,6 @@ D:\VisualStudioProjects\WebLogsAnalyzer\WebLogsAnalyser\bin\Microsoft.Owin.Secur
 D:\VisualStudioProjects\WebLogsAnalyzer\WebLogsAnalyser\bin\Microsoft.Owin.Security.Google.xml
 D:\VisualStudioProjects\WebLogsAnalyzer\WebLogsAnalyser\bin\Microsoft.Owin.Security.Twitter.xml
 D:\VisualStudioProjects\WebLogsAnalyzer\WebLogsAnalyser\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+D:\VisualStudioProjects\WebLogsAnalyzer\WebLogsAnalyser\obj\Release\WebLogsAnalyzer.csprojResolveAssemblyReference.cache
 D:\VisualStudioProjects\WebLogsAnalyzer\WebLogsAnalyser\obj\Release\WebLogsAnalyser.dll
 D:\VisualStudioProjects\WebLogsAnalyzer\WebLogsAnalyser\obj\Release\WebLogsAnalyser.pdb
