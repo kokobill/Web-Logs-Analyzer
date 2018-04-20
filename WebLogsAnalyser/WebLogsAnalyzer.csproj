@@ -189,6 +189,9 @@
     </Content>
     <Content Include="App_Data\tmp\tmp.txt" />
     <Content Include="App_Data\UploadedLogFiles\20180418192631518_apache_logs.txt" />
+    <Content Include="App_Data\UploadedLogFiles\20180418192653221_FEW_apache_logs.txt" />
+    <Content Include="App_Data\UploadedLogFiles\20180418192659324_MANY_apache_logs.txt" />
+    <Content Include="App_Data\UploadedLogFiles\20180420105802489_apache_logs.txt" />
     <Content Include="App_Data\UploadedLogFiles\tmp.txt" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />

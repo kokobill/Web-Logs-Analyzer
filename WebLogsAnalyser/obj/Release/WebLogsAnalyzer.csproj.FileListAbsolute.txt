@@ -66,4 +66,3 @@ D:\VisualStudioProjects\WebLogsAnalyzer\WebLogsAnalyser\bin\Microsoft.Owin.Secur
 D:\VisualStudioProjects\WebLogsAnalyzer\WebLogsAnalyser\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 D:\VisualStudioProjects\WebLogsAnalyzer\WebLogsAnalyser\obj\Release\WebLogsAnalyser.dll
 D:\VisualStudioProjects\WebLogsAnalyzer\WebLogsAnalyser\obj\Release\WebLogsAnalyser.pdb
-D:\VisualStudioProjects\WebLogsAnalyzer\WebLogsAnalyser\obj\Release\WebLogsAnalyzer.csprojResolveAssemblyReference.cache
