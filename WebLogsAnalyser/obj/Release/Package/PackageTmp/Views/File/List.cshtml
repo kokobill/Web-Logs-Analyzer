@@ -1,0 +1,38 @@
+﻿@model List<System.IO.FileInfo>
+
+@ViewBag.Message
+<table class="table">
+    <tr>
+        <th>
+            File Name
+        </th>
+        <th>
+            Analyze
+        </th>
+        <th>
+            Delete
+        </th>
+
+    </tr>
+
+@foreach (var file in ViewBag.UploadedFiles) {
+    <tr>
+        <td>
+            @file.ToString()
+        </td>
+        <td>
+            @Html.ActionLink("Analyze", "Analyze", new { filename = file.ToString() })
+        </td>
+        @if (Request.IsAuthenticated) {
+            <td>
+                @Html.ActionLink("Delete", "Delete", new { filename = file.ToString() }) 
+            </td>
+        } else {
+            <td>
+               ---
+            </td>
+        }
+    </tr>
+}
+
+</table>
